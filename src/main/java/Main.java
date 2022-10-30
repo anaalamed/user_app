@@ -55,23 +55,21 @@ Implement an authentication flow:
 
 public class Main {
     public static void main(String[] args) {
-
         Server.getInstance(); // we initialize all the singletons needed for the server side
 
-        // id not from main - random at service
-        AuthController.registration("a", "a", "a");
-        AuthController.registration("b", "b", "b");
+        AuthController.registration("aaa@gmail.com", "david", "aaaaaaaa1");
+        AuthController.registration("bbb@gmail.com", "ana", "aaaaaaaa1");
 
         // login failed
-        AuthController.login("a", "b");
+        AuthController.login("aaa@gmail.com", "wrong password");
 
         // login success
-        String token = AuthController.login("a", "a");
-        String token2 = AuthController.login("b", "b");
+        String token = AuthController.login("aaa@gmail.com", "aaaaaaaa1");
+        String token2 = AuthController.login("bbb@gmail.com", "aaaaaaaa1");
 
         System.out.println(token);
         System.out.println(token2);
 
-        UserController.updateUser(token, "zzz", "a", "a");
+        UserController.updateUser(token, "zzz", "a", "a");        // update name only
     }
 }

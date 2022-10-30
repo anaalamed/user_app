@@ -1,5 +1,7 @@
 package server;
 
+import utils.Validate;
+
 public class AuthController {
     private static AuthController single_instance = null;
     private static AuthService authService;
@@ -37,13 +39,16 @@ public class AuthController {
     }
 
     public static boolean validateUser(String email, String name, String password) {
-        validateId();
-        // validation id - only numbers - 4 digits - String
-        // email - email
-        // name - just letters
-        // password - regex
 
-        return true;
+        boolean isEmailValid = Validate.validateEmail(email);
+        boolean isNameValid = Validate.validateName(name);
+        boolean isPasswordValid = Validate.validatePassword(password);
+
+        // password - regex
+        if (isEmailValid && isNameValid && isPasswordValid) {
+            return true;
+        }
+        return false;
     }
 
 

@@ -22,7 +22,7 @@ class AuthService {
     }
 
     public void createNewUser(String email, String name, String password) {
-        // validation: id unique, email unique ...
+        // validation:  email unique ...
 
         User newUser = new User(email, name, password);
 
