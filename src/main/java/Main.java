@@ -1,5 +1,6 @@
 import server.AuthController;
 import server.Server;
+import server.UserController;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,7 +15,14 @@ public class Main {
         AuthController.login("a", "b");
 
         // login success
-        AuthController.login("a", "a");
-        AuthController.login("b", "b");
+        String token =  AuthController.login("a", "a");
+        String token2 = AuthController.login("b", "b");
+
+        System.out.println(token);
+        System.out.println(token2);
+
+
+        UserController.updateUser(token, "zzz", "a", "a");
+
     }
 }

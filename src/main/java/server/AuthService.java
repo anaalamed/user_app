@@ -36,7 +36,7 @@ class AuthService {
 
     }
 
-    public static void loginUser(String email, String password) {
+    public static String loginUser(String email, String password) {
 
         File folder = new File("src/main/java/server/repo");
         File[] listOfFiles = folder.listFiles();
@@ -50,9 +50,9 @@ class AuthService {
                     if (fileContent.get("password").equals(password)) {
                         // generate token
                         String token = "1234";
-                        mapUserTokens.put(fileContent.get("id"), token);
+                        mapUserTokens.put( token, fileContent.get("id"));
                         System.out.println(mapUserTokens);
-                        return;
+                        return token;
                     } else {
                         System.out.println("the password is invalid");
                     }
@@ -60,6 +60,11 @@ class AuthService {
 
         }
         System.out.println("login failed");
+        return null;
+    }
+
+    public static String getUserId(String token) {
+        return mapUserTokens.get(token);
     }
 
 }
