@@ -1,25 +1,23 @@
 package server;
 
-public class User {
-    private final String id;
-    private final String email;
-    private final String name;
-    private final String password;
+import java.util.UUID;
 
-    public User(String id, String email, String name, String password) {
-        this.id = id;
+public class User {
+    private final int id;
+    private final String email, name, password;
+
+    public User(String email, String name, String password) {
+        id = generateUniqueId();
         this.email = email;
         this.name = name;
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    private int generateUniqueId() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.hashCode();
+    }
+    public int getId(){
+        return id;
     }
 }
