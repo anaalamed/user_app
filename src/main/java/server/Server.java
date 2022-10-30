@@ -18,8 +18,5 @@ public class Server {
         authController = new AuthController();
     }
 
-    public void registration(String id, String email, String  name, String password) {
-        authController.validateUser(id, email, name, password);
 
-    }
 }
