@@ -1,10 +1,13 @@
+import server.AuthController;
 import server.Server;
 
 public class Main {
     public static void main(String[] args) {
 
         Server server = new Server();
-        server.registration("3", "b", "b", "b");
+
+        // id not from main - random at service
+        AuthController.registration("1", "b", "aa", "1");
 
     }
 }
