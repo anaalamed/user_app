@@ -11,11 +11,10 @@ public class Main {
         AuthController.registration("2", "b", "b", "b");
 
         // login failed
-        String userToken = AuthController.login("b", "a");
-        System.out.println("user token: " + userToken);
+        AuthController.login("a", "b");
 
         // login success
-        String userToken2 = AuthController.login("b", "b");
-        System.out.println("\nuser token: " + userToken2);
+        AuthController.login("a", "a");
+        AuthController.login("b", "b");
     }
 }

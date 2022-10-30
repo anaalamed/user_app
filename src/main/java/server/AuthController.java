@@ -15,16 +15,14 @@ public class AuthController {
         return single_instance;
     }
 
-    public static String login( String email, String password) {
+    public static void login( String email, String password) {
         boolean isValidateLoginFields = validateLoginFields( email, password);
 
         if (isValidateLoginFields) {
-            String userToken = authService.loginUser(email, password);
-            return userToken;
+            authService.loginUser(email, password);
+        } else {
+            System.out.println("user data is not valid. login failed");
         }
-
-        System.out.println("user data is not valid. login failed");
-        return null;  // null?
     }
 
     public static void registration(String id, String email, String name, String password) {

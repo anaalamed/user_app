@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 class AuthService {
     private static AuthService single_instance = null;
+    static HashMap<String, String> mapUserTokens = new HashMap<>();
 
 
     private AuthService() {
@@ -35,7 +36,7 @@ class AuthService {
 
     }
 
-    public static String loginUser(String email, String password) {
+    public static void loginUser(String email, String password) {
 
         File folder = new File("src/main/java/server/repo");
         File[] listOfFiles = folder.listFiles();
@@ -48,7 +49,10 @@ class AuthService {
                 if (fileContent.get("email").equals(email)) {
                     if (fileContent.get("password").equals(password)) {
                         // generate token
-                        return "1234";
+                        String token = "1234";
+                        mapUserTokens.put(fileContent.get("id"), token);
+                        System.out.println(mapUserTokens);
+                        return;
                     } else {
                         System.out.println("the password is invalid");
                     }
@@ -56,7 +60,6 @@ class AuthService {
 
         }
         System.out.println("login failed");
-        return null;   // null?
     }
 
 }
