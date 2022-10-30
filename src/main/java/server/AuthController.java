@@ -2,7 +2,7 @@ package server;
 
 public class AuthController {
     private static AuthController single_instance = null;
-    private AuthService authService;
+    private static AuthService authService;
 
     public AuthController() {
         authService = AuthService.getInstance();
@@ -15,7 +15,7 @@ public class AuthController {
         return single_instance;
     }
 
-    public void registration(String id, String email, String  name, String password) {
+    public static void registration(String id, String email, String name, String password) {
         boolean isValidateUser = validateUser(id, email, name, password);
 
         if (isValidateUser) {
@@ -25,7 +25,7 @@ public class AuthController {
         }
     }
 
-    public boolean validateUser(String id, String email, String  name, String password) {
+    public static boolean validateUser(String id, String email, String name, String password) {
         validateId();
         // validation id - only numbers - 4 digits - String
         // email - email
