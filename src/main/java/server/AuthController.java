@@ -26,17 +26,17 @@ public class AuthController {
         return null;
     }
 
-    public static void registration(String id, String email, String name, String password) {
-        boolean isValidateUser = validateUser(id, email, name, password);
+    public static void registration( String email, String name, String password) {
+        boolean isValidateUser = validateUser(email, name, password);
 
         if (isValidateUser) {
-            authService.createNewUser(id, email, name, password);
+            authService.createNewUser(email, name, password);
         } else {
             System.out.println("data for new user is not valid");
         }
     }
 
-    public static boolean validateUser(String id, String email, String name, String password) {
+    public static boolean validateUser(String email, String name, String password) {
         validateId();
         // validation id - only numbers - 4 digits - String
         // email - email
@@ -56,7 +56,4 @@ public class AuthController {
     public static void validateId() {
 
     }
-
-
-
 }

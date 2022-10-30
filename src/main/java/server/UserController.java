@@ -15,7 +15,6 @@ public class UserController {
         return single_instance;
     }
 
-
     public static void updateUser(String token, String name, String email, String password) {
         String userId = AuthService.getUserId(token);
         System.out.println(userId);
@@ -23,9 +22,5 @@ public class UserController {
         // validation
 
         UserService.updateName(userId, name);
-
-
-
     }
-
 }
