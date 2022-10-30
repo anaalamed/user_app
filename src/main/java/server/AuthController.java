@@ -15,13 +15,23 @@ public class AuthController {
         return single_instance;
     }
 
+    public static void login( String email, String password) {
+        boolean isValidateLoginFields = validateLoginFields( email, password);
+
+        if (isValidateLoginFields) {
+            authService.loginUser(email, password);
+        } else {
+            System.out.println("user data is not valid. login failed");
+        }
+    }
+
     public static void registration(String id, String email, String name, String password) {
         boolean isValidateUser = validateUser(id, email, name, password);
 
         if (isValidateUser) {
             authService.createNewUser(id, email, name, password);
         } else {
-            System.out.println("user data is not valid");
+            System.out.println("data for new user is not valid");
         }
     }
 
@@ -35,6 +45,13 @@ public class AuthController {
         return true;
     }
 
+
+    public static boolean validateLoginFields( String email, String password) {
+        // email - email
+        // password - regex
+
+        return true;
+    }
     public static void validateId() {
 
     }
