@@ -10,4 +10,4 @@
 log/
 target/
 
-src/main/java/server/repo
+src/main/java/server/repo/
