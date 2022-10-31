@@ -9,8 +9,9 @@ import java.util.UUID;
 
 public class UserRepository {
     private static UserRepository single_instance = null;
-
     private static Map<Integer, User> users = new HashMap<>();     // cache
+
+    private static final String BASE_ROUTE = "src/main/java/server/repo";
 
     static class User {
         private int id;
@@ -24,9 +25,10 @@ public class UserRepository {
         }
 
         private int generateUniqueId() {
-            return  UUID.randomUUID().hashCode() & Integer.MAX_VALUE;
+            return UUID.randomUUID().hashCode() & Integer.MAX_VALUE;
         }
-        public int getId(){
+
+        public int getId() {
             return id;
         }
 
@@ -80,32 +82,39 @@ public class UserRepository {
     // methos read all files -> cache ...
 
     public static void writeUserToDb(User user) {
-        int tempId = user.getId();
+        int id = user.getId();
 
-        HashMap<String, String> mapToJson = new HashMap<String, String>();
+        HashMap<String, String> mapToJson = new HashMap<>();
 
-        mapToJson.put("id", String.valueOf(tempId));
+        mapToJson.put("id", String.valueOf(id));
         mapToJson.put("email", user.getEmail());
         mapToJson.put("name", user.getName());
         mapToJson.put("password", user.getPassword());
 
-        String filename = "src/main/java/server/repo/" + tempId + ".json";
+        String filename = BASE_ROUTE + "/" + id + ".json";
         Files.writeJsonToFile(filename, mapToJson);
         users.put(user.getId(), user);
     }
 
-    public static void removeUserFromDb(int id){
-        String filename = "src/main/java/server/repo/" + id + ".json";
+    public static void removeUserFromDb(int id) {
+        String filename = BASE_ROUTE + "/" + id + ".json";
         Files.removeFile(filename);
     }
 
     public static User getUserById(Integer id) {
-        User user = users.get(id);
+        User user = null;
+        try {
+            user = users.get(id);
+            return user;
+        } catch (NullPointerException e) {
+            System.out.println(e);
+        }
+
         return user;
     }
 
     public static User getUserByEmail(String email) {
-        for (Integer i: users.keySet()) {
+        for (Integer i : users.keySet()) {
             if (users.get(i).getEmail().equals(email)) {
                 return users.get(i);
             }
@@ -114,16 +123,15 @@ public class UserRepository {
     }
 
     public static Map<Integer, User> cacheUsersFilesFromRepo() {
-        File folder = new File("src/main/java/server/repo");
+        File folder = new File(BASE_ROUTE);
         File[] listOfFiles = folder.listFiles();
 
-        String filename = "src/main/java/server/repo/";
+        String filename = BASE_ROUTE + "/";
 
         for (int i = 0; i < listOfFiles.length; i++) {
             HashMap<String, String> fileContent = Files.readFromFile(filename + listOfFiles[i].getName());
-            users.put(Integer.valueOf(fileContent.get("id")), new User(fileContent.get("email"), fileContent.get("name"), fileContent.get("password") ));
+            users.put(Integer.valueOf(fileContent.get("id")), new User(fileContent.get("email"), fileContent.get("name"), fileContent.get("password")));
         }
         return users;
     }
-
 }
