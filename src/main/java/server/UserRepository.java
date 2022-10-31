@@ -24,8 +24,7 @@ public class UserRepository {
         }
 
         private int generateUniqueId() {
-            UUID uuid = UUID.randomUUID();
-            return uuid.hashCode();
+            return  UUID.randomUUID().hashCode() & Integer.MAX_VALUE;
         }
         public int getId(){
             return id;
@@ -43,9 +42,6 @@ public class UserRepository {
             return password;
         }
 
-        public void setId(int id) {
-            this.id = id;
-        }
 
         public void setEmail(String email) {
             this.email = email;

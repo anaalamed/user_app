@@ -16,9 +16,12 @@ public class UserService {
 
     public static void updateName(Integer id, String name) {
         UserRepository.User user = UserRepository.getUserById(id);
-        if (!user.getName().equals(name)) {
-            user.setName(name);
-            UserRepository.writeUserToDb(user);
+
+        if (user !=null) {
+            if (!user.getName().equals(name)) {
+                user.setName(name);
+                UserRepository.writeUserToDb(user);
+            }
         }
     }
 
