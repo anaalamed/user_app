@@ -16,12 +16,37 @@ public class UserService {
 
     public static void updateName(Integer id, String name) {
         UserRepository.User user = UserRepository.getUserById(id);
-        if (!user.getName().equals(name)) {
-            user.setName(name);
+
+        if (user !=null) {
+            if (!user.getName().equals(name)) {
+                user.setName(name);
+                UserRepository.writeUserToDb(user);
+            }
+        }
+    }
+
+    public static void updateEmail(Integer id, String email) {
+        UserRepository.User user = UserRepository.getUserById(id);
+        if (!user.getEmail().equals(email)) {
+            user.setEmail(email);
             UserRepository.writeUserToDb(user);
         }
     }
 
+    public static void updatePassword(Integer id, String password) {
+        UserRepository.User user = UserRepository.getUserById(id);
 
-    // function delete
+        if (!user.getPassword().equals(password)) {
+            user.setPassword(password);
+            UserRepository.writeUserToDb(user);
+        }
+    }
+
+    public static void removeUser(Integer id) {
+        UserRepository.User user = UserRepository.getUserById(id);
+
+        if (user != null) {
+            UserRepository.removeUserFromDb(id);
+        }
+    }
 }

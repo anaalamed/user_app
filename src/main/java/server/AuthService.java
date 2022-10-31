@@ -3,8 +3,11 @@ package server;
 import utils.Files;
 
 import java.io.File;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 class AuthService {
     private static AuthService single_instance = null;
@@ -23,9 +26,12 @@ class AuthService {
 
     public void createNewUser(String email, String name, String password) {
         // validation:  email unique ...
-
-        UserRepository.User newUser = new UserRepository.User(email, name, password);
-        UserRepository.writeUserToDb(newUser);
+        UserRepository.User userExist = UserRepository.getUserByEmail(email);
+        System.out.println(userExist);
+        if (userExist == null) {
+            UserRepository.User newUser = new UserRepository.User(email, name, password);
+            UserRepository.writeUserToDb(newUser);
+        }
     }
 
     public static String loginUser(String email, String password) {
@@ -33,7 +39,7 @@ class AuthService {
         UserRepository.User user = UserRepository.getUserByEmail(email);
         if (user.getPassword().equals(password)) {
             // generate token
-            String token = String.valueOf(generateUniqueToken());
+            String token = generateUniqueToken();
             mapUserTokens.put(token, String.valueOf(user.getId()));
             System.out.println("hashmap login tokens: " + mapUserTokens);
             return token;
@@ -41,9 +47,11 @@ class AuthService {
         return null;
     }
 
-    private static int generateUniqueToken() {
-        UUID uuid = UUID.randomUUID();
-        return uuid.hashCode();
+    private static String generateUniqueToken() {
+        StringBuilder token = new StringBuilder();
+        long currentTimeInMilisecond = Instant.now().toEpochMilli();
+        return token.append(currentTimeInMilisecond).append("-")
+                .append(UUID.randomUUID().toString()).toString();
     }
 
     public static Integer getUserId(String token) {

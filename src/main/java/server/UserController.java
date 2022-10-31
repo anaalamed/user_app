@@ -42,7 +42,7 @@ public class UserController {
         try {
             Integer userId = AuthService.getUserId(token);
             if (Validate.validatePassword(password)) {
-                UserService.(userId, password);
+                UserService.updatePassword(userId, password);
             } else {
                 System.out.println("Invalid password: " + password);
             }
