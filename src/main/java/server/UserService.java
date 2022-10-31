@@ -1,9 +1,5 @@
 package server;
 
-import utils.Files;
-
-import java.util.HashMap;
-
 public class UserService {
     private static UserService single_instance = null;
 
@@ -15,7 +11,7 @@ public class UserService {
     }
 
     public static void updateName(Integer id, String name) {
-        UserRepository.User user = UserRepository.getUserById(id);
+        UserRepository.User user = getUserById(id);
 
         if (user !=null) {
             if (!user.getName().equals(name)) {
@@ -26,7 +22,7 @@ public class UserService {
     }
 
     public static void updateEmail(Integer id, String email) {
-        UserRepository.User user = UserRepository.getUserById(id);
+        UserRepository.User user = getUserById(id);
         if (!user.getEmail().equals(email)) {
             user.setEmail(email);
             UserRepository.writeUserToDb(user);
@@ -34,7 +30,7 @@ public class UserService {
     }
 
     public static void updatePassword(Integer id, String password) {
-        UserRepository.User user = UserRepository.getUserById(id);
+        UserRepository.User user = getUserById(id);
 
         if (!user.getPassword().equals(password)) {
             user.setPassword(password);
@@ -43,10 +39,13 @@ public class UserService {
     }
 
     public static void removeUser(Integer id) {
-        UserRepository.User user = UserRepository.getUserById(id);
+        UserRepository.User user = getUserById(id);
 
         if (user != null) {
             UserRepository.removeUserFromDb(id);
         }
+    }
+    private static UserRepository.User getUserById(Integer id){
+        return UserRepository.getUserById(id);
     }
 }
