@@ -22,6 +22,28 @@ public class UserService {
         }
     }
 
+    public static void updateEmail(Integer id, String email) {
+        UserRepository.User user = UserRepository.getUserById(id);
+        if (!user.getEmail().equals(email)) {
+            user.setEmail(email);
+            UserRepository.writeUserToDb(user);
+        }
+    }
 
-    // function delete
+    public static void updatePassword(Integer id, String password) {
+        UserRepository.User user = UserRepository.getUserById(id);
+
+        if (!user.getPassword().equals(password)) {
+            user.setPassword(password);
+            UserRepository.writeUserToDb(user);
+        }
+    }
+
+    public static void removeUser(Integer id) {
+        UserRepository.User user = UserRepository.getUserById(id);
+
+        if (user != null) {
+            UserRepository.removeUserFromDb(id);
+        }
+    }
 }
