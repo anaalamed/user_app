@@ -47,6 +47,10 @@ class AuthService {
     }
 
     public static Integer getUserId(String token) {
-        return Integer.valueOf(mapUserTokens.get(token));
+        String id = mapUserTokens.get(token);
+        if (id == null) {
+            throw new NullPointerException();
+        }
+        return Integer.valueOf(id);
     }
 }
