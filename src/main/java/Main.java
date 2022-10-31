@@ -1,6 +1,7 @@
 import server.AuthController;
 import server.Server;
 import server.UserController;
+import server.UserRepository;
 
 /*
 Implement an authentication flow:
@@ -61,15 +62,20 @@ public class Main {
         AuthController.registration("bbb@gmail.com", "ana", "aaaaaaaa1");
 
         // login failed
+
         AuthController.login("aaa@gmail.com", "wrong password");
+
 
         // login success
         String token = AuthController.login("aaa@gmail.com", "aaaaaaaa1");
         String token2 = AuthController.login("bbb@gmail.com", "aaaaaaaa1");
 
-        System.out.println(token);
-        System.out.println(token2);
+        System.out.println("token1: " + token);
+        System.out.println("token2: " + token2);
 
-        UserController.updateUser(token, "zzz", "a", "a");        // update name only
+
+        UserController.updateUser(token, "zzz", "a", "a");
+        System.out.println("hashmap users cache: " + UserRepository.getUsers());   // check only
+
     }
 }
