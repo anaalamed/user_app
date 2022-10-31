@@ -24,7 +24,7 @@ class AuthService {
     public void createNewUser(String email, String name, String password) {
         // validation: id unique, email unique ...
 
-        User newUser = new User(email, name, password);
+        UserRepository.User newUser = new UserRepository.User(email, name, password);
 
         int tempId = newUser.getId();
 

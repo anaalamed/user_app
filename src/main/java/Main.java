@@ -63,7 +63,7 @@ public class Main {
         AuthController.registration("b", "b", "b");
 
         // login failed
-        AuthController.login("a", "b");
+//        AuthController.login("a", "b");
 
         // login success
         String token = AuthController.login("a", "a");
