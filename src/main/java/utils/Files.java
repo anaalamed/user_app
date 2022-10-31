@@ -37,4 +37,18 @@ public class Files {
         }
         return null;
     }
+
+    public static void removeFile(String filename){
+        try{
+            File file = new File(filename);
+            if (file.delete()) {
+                System.out.println("Deleted the file: " + file.getName());
+            } else {
+                System.out.println("Failed to delete the file.");
+            }
+        }
+        catch (NullPointerException nullPointerException){
+            System.out.println("File was not found");
+        }
+    }
 }

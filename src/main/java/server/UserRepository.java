@@ -98,6 +98,11 @@ public class UserRepository {
         users.put(user.getId(), user);
     }
 
+    public static void removeUserFromDb(int id){
+        String filename = "src/main/java/server/repo/" + id + ".json";
+        Files.removeFile(filename);
+    }
+
     public static User getUserById(Integer id) {
         User user = users.get(id);
         return user;
