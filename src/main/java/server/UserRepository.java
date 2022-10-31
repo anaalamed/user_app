@@ -24,8 +24,9 @@ public class UserRepository {
         }
 
         private int generateUniqueId() {
-            UUID uuid = UUID.randomUUID();
-            return uuid.hashCode();
+//            UUID uuid = UUID.randomUUID();
+//            return uuid.hashCode();
+            return  UUID.randomUUID().hashCode() & Integer.MAX_VALUE;
         }
         public int getId(){
             return id;
