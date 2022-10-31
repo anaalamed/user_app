@@ -74,7 +74,6 @@ public class Main {
         System.out.println("token2: " + token2);
 
 
-        UserController.updateUser(token, "zzz", "a", "a");
         System.out.println("hashmap users cache: " + UserRepository.getUsers());   // check only
 
     }
