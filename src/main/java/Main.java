@@ -1,6 +1,7 @@
 import server.AuthController;
 import server.Server;
 import server.UserController;
+import server.UserRepository;
 
 /*
 Implement an authentication flow:
@@ -69,9 +70,12 @@ public class Main {
         String token = AuthController.login("a", "a");
         String token2 = AuthController.login("b", "b");
 
-        System.out.println(token);
-        System.out.println(token2);
+        System.out.println("token1: " + token);
+        System.out.println("token2: " + token2);
 
         UserController.updateUser(token, "zzz", "a", "a");
+
+
+        System.out.println("hashmap users cache: " + UserRepository.getUsers());   // check only
     }
 }

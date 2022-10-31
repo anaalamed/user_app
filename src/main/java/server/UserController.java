@@ -16,8 +16,7 @@ public class UserController {
     }
 
     public static void updateUser(String token, String name, String email, String password) {
-        String userId = AuthService.getUserId(token);
-        System.out.println(userId);
+        Integer userId = AuthService.getUserId(token);
 
         // validation
 

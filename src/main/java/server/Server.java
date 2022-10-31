@@ -17,5 +17,6 @@ public class Server {
         UserController.getInstance();
         AuthService.getInstance();
         UserService.getInstance();
+        UserRepository.getInstance();
     }
 }
