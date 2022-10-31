@@ -18,14 +18,6 @@ public class UserController {
         return single_instance;
     }
 
-    public static void updateUser(String token, String name, String email, String password) {
-        Integer userId = AuthService.getUserId(token);
-
-        // validation
-
-        UserService.updateName(userId, name);
-    }
-
     public static void updateName(String token, String name) {
         try {
             Integer userId = AuthService.getUserId(token);
@@ -38,6 +30,7 @@ public class UserController {
             System.out.println("Invalid Token");
         }
     }
+
     public static void updatePassword(String token, String password) {
         try {
             Integer userId = AuthService.getUserId(token);
@@ -46,6 +39,28 @@ public class UserController {
             } else {
                 System.out.println("Invalid password: " + password);
             }
+        } catch (NullPointerException error) {
+            System.out.println("Invalid Token");
+        }
+    }
+
+    public static void updateEmail(String token, String email) {
+        try {
+            Integer userId = AuthService.getUserId(token);
+            if (Validate.validateEmail(email)) {
+                UserService.updateEmail(userId, email);
+            } else {
+                System.out.println("Invalid email: " + email);
+            }
+        } catch (NullPointerException error) {
+            System.out.println("Invalid Token");
+        }
+    }
+
+    public static void removeUser(String token) {
+        try {
+            Integer userId = AuthService.getUserId(token);
+            UserService.removeUser(userId);
         } catch (NullPointerException error) {
             System.out.println("Invalid Token");
         }
