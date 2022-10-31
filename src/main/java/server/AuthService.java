@@ -22,7 +22,7 @@ class AuthService {
     }
 
     public void createNewUser(String email, String name, String password) {
-        // validation: id unique, email unique ...
+        // validation:  email unique ...
 
         UserRepository.User newUser = new UserRepository.User(email, name, password);
         UserRepository.writeUserToDb(newUser);
