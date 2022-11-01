@@ -17,15 +17,15 @@ public class AuthController {
         return single_instance;
     }
 
-    public static String  login( String email, String password) {
+    public static String login( String email, String password) {
         boolean isValidateLoginFields = validateLoginFields( email, password);
 
         if (isValidateLoginFields) {
             return authService.loginUser(email, password);
         } else {
-            System.out.println("user data is not valid. login failed");
+            System.out.println("data is not valid. login failed");
+            return null;
         }
-        return null;
     }
 
     public static void registration( String email, String name, String password) {
@@ -53,10 +53,15 @@ public class AuthController {
 
 
     public static boolean validateLoginFields( String email, String password) {
-        // email - email
-        // password - regex
+        boolean isEmailValid = Validate.validateEmail(email);
+        boolean isPasswordValid = Validate.validatePassword(password);
 
-        return true;
+        if (isEmailValid && isPasswordValid) {
+            return true;
+        } else {
+            System.out.println("login failed for email: " + email);
+            return false;
+        }
     }
     public static void validateId() {
 
