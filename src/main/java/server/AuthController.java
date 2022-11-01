@@ -17,25 +17,28 @@ public class AuthController {
         return single_instance;
     }
 
-    public static String login( String email, String password) {
-        boolean isValidateLoginFields = validateLoginFields( email, password);
+    public static void registration( String email, String name, String password) throws IllegalArgumentException {
+        boolean isValidateUser = validateUser(email, name, password);
 
-        if (isValidateLoginFields) {
-            return authService.loginUser(email, password);
-        } else {
-            System.out.println("data is not valid. login failed");
-            return null;
+        if (!isValidateUser) {
+            throw new IllegalArgumentException("input is not valid, registration failed");
+        }
+
+        try {
+            authService.createNewUser(email, name, password);
+        }
+        catch (NullPointerException nullPointerException){
+            System.out.println(nullPointerException);
         }
     }
 
-    public static void registration( String email, String name, String password) {
-        boolean isValidateUser = validateUser(email, name, password);
+    public static String login( String email, String password) throws  IllegalArgumentException{
+        boolean isValidateLoginFields = validateLoginFields( email, password);
 
-        if (isValidateUser) {
-            authService.createNewUser(email, name, password);
-        } else {
-            System.out.println("data for new user is not valid");
+        if (!isValidateLoginFields) {
+            throw new IllegalArgumentException("input is not valid, login failed");
         }
+        return authService.loginUser(email, password);
     }
 
     public static boolean validateUser(String email, String name, String password) {
@@ -44,13 +47,8 @@ public class AuthController {
         boolean isNameValid = Validate.validateName(name);
         boolean isPasswordValid = Validate.validatePassword(password);
 
-        // password - regex
-        if (isEmailValid && isNameValid && isPasswordValid) {
-            return true;
-        }
-        return false;
+        return isEmailValid && isNameValid && isPasswordValid;
     }
-
 
     public static boolean validateLoginFields( String email, String password) {
         boolean isEmailValid = Validate.validateEmail(email);
@@ -58,12 +56,9 @@ public class AuthController {
 
         if (isEmailValid && isPasswordValid) {
             return true;
-        } else {
-            System.out.println("login failed for email: " + email);
-            return false;
         }
-    }
-    public static void validateId() {
 
+        System.out.println("login has failed for email: " + email);
+        return false;
     }
 }

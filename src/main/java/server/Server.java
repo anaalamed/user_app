@@ -14,8 +14,8 @@ public class Server {
 
         // init singletons
         AuthController.getInstance();
-        UserController.getInstance();
         AuthService.getInstance();
+        UserController.getInstance();
         UserService.getInstance();
         UserRepository.getInstance();
     }

@@ -66,11 +66,16 @@ public class Main {
         AuthController.registration("ddd@gmail.com", "delete", "aaaaaaaa1");
         System.out.println();
 
-
-        // login failed
-        System.out.println("Login failed illustration: ");
-        AuthController.login("aaa@gmail.com", "wrongPassword");       // password not validate
-        AuthController.login("aaa@gmail.com", "wrongPassword1");      // password doesn't match
+        try{
+            // login failed
+            System.out.println("Login failed illustration: ");
+            AuthController.login("aaa@gmail.com", "wrongPassword");       // password not validate
+            AuthController.login("aaa@gmail.com", "wrongPassword1");      // password doesn't match
+        }
+        catch (IllegalArgumentException illegalArgumentException)
+        {
+            System.out.println(illegalArgumentException);
+        }
         System.out.println();
 
         // login success
