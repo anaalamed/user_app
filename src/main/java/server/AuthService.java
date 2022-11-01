@@ -1,13 +1,9 @@
 package server;
 
-import utils.Files;
-
-import java.io.File;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+
 
 class AuthService {
     private static AuthService single_instance = null;
