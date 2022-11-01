@@ -4,10 +4,8 @@ import utils.Validate;
 
 public class UserController {
     private static UserController single_instance = null;
-    private static UserService userService;
 
     private UserController() {
-        userService = UserService.getInstance();
     }
 
     public static UserController getInstance() {

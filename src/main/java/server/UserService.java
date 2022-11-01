@@ -13,30 +13,31 @@ public class UserService {
     protected static void updateName(Integer id, String name) {
         UserRepository.User user = getUserById(id);
 
-        if (user !=null) {
-            if (!user.getName().equals(name)) {
-                user.setName(name);
-                UserRepository.writeUserToDb(user);
-            }
+        if (user.getName().equals(name)) {
+            throw new IllegalArgumentException("Cannot update the same name");
         }
+        user.setName(name);
+        UserRepository.writeUserToDb(user);
     }
 
     protected static void updateEmail(Integer id, String email) {
         UserRepository.User user = getUserById(id);
         // need to add validation for email already exists
-        if (!user.getEmail().equals(email)) {
-            user.setEmail(email);
-            UserRepository.writeUserToDb(user);
+        if (user.getEmail().equals(email)) {
+            throw new IllegalArgumentException("Cannot update the same email");
         }
+        user.setEmail(email);
+        UserRepository.writeUserToDb(user);
     }
 
     protected static void updatePassword(Integer id, String password) {
         UserRepository.User user = getUserById(id);
 
-        if (!user.getPassword().equals(password)) {
-            user.setPassword(password);
-            UserRepository.writeUserToDb(user);
+        if (user.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Cannot update the same password");
         }
+        user.setPassword(password);
+        UserRepository.writeUserToDb(user);
     }
 
     protected static void removeUser(Integer id) {
@@ -46,7 +47,8 @@ public class UserService {
             UserRepository.removeUserFromDb(id);
         }
     }
-    private static UserRepository.User getUserById(Integer id){
+
+    private static UserRepository.User getUserById(Integer id) {
         return UserRepository.getUserById(id);
     }
 }

@@ -79,7 +79,6 @@ public class UserRepository {
         }
         return single_instance;
     }
-    // methos read all files -> cache ...
 
     protected static void writeUserToDb(User user) {
         int id = user.getId();
@@ -99,19 +98,17 @@ public class UserRepository {
     protected static void removeUserFromDb(int id) {
         String filename = BASE_ROUTE + "/" + id + ".json";
         Files.removeFile(filename);
-        // need to delete user from users hashmap!
+
+        users.remove(id);
     }
 
     protected static User getUserById(Integer id) {
-        User user = null;
         try {
-            user = users.get(id);
-            return user;
+            return users.get(id);
         } catch (NullPointerException e) {
             System.out.println(e);
         }
-
-        return user;
+        return null;
     }
 
     protected static User getUserByEmail(String email) {

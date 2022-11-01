@@ -13,8 +13,8 @@ public class Server {
     private Server() {
         // init singletons
         AuthController.getInstance();
-        UserController.getInstance();
         AuthService.getInstance();
+        UserController.getInstance();
         UserService.getInstance();
         UserRepository.getInstance();
     }
