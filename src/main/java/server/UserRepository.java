@@ -17,7 +17,7 @@ public class UserRepository {
         private int id;
         private String email, name, password;
 
-        public User(String email, String name, String password) {
+        protected User(String email, String name, String password) {
             id = generateUniqueId();
             this.email = email;
             this.name = name;
@@ -79,9 +79,8 @@ public class UserRepository {
         }
         return single_instance;
     }
-    // methos read all files -> cache ...
 
-    public static void writeUserToDb(User user) {
+    protected static void writeUserToDb(User user) {
         int id = user.getId();
 
         HashMap<String, String> mapToJson = new HashMap<>();
@@ -96,27 +95,23 @@ public class UserRepository {
         users.put(user.getId(), user);
     }
 
-    public static void removeUserFromDb(int id) {
+    protected static void removeUserFromDb(int id) {
         String filename = BASE_ROUTE + "/" + id + ".json";
         Files.removeFile(filename);
 
         users.remove(id);
-        // need to delete user from users hashmap!
     }
 
-    public static User getUserById(Integer id) {
-        User user = null;
+    protected static User getUserById(Integer id) {
         try {
-            user = users.get(id);
-            return user;
+            return users.get(id);
         } catch (NullPointerException e) {
             System.out.println(e);
         }
-
-        return user;
+        return null;
     }
 
-    public static User getUserByEmail(String email) {
+    protected static User getUserByEmail(String email) {
         for (Integer i : users.keySet()) {
             if (users.get(i).getEmail().equals(email)) {
                 return users.get(i);
@@ -125,7 +120,7 @@ public class UserRepository {
         return null;
     }
 
-    public static Map<Integer, User> cacheUsersFilesFromRepo() {
+    private static Map<Integer, User> cacheUsersFilesFromRepo() {
         File folder = new File(BASE_ROUTE);
         File[] listOfFiles = folder.listFiles();
 

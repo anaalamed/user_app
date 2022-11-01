@@ -17,15 +17,13 @@ class AuthService {
     }
 
     public static AuthService getInstance() {
-
         if (single_instance == null)
             single_instance = new AuthService();
 
         return single_instance;
     }
 
-    public void createNewUser(String email, String name, String password) throws IllegalArgumentException {
-        // validation:  email unique ...
+    protected void createNewUser(String email, String name, String password) throws IllegalArgumentException {
         UserRepository.User userExist = UserRepository.getUserByEmail(email);
 
         if (userExist != null) {
@@ -36,8 +34,7 @@ class AuthService {
         UserRepository.writeUserToDb(newUser);
     }
 
-    public static String loginUser(String email, String password) {
-
+    protected static String loginUser(String email, String password) {
         UserRepository.User user = UserRepository.getUserByEmail(email);
 
         if (!user.getPassword().equals(password)) {
@@ -49,7 +46,6 @@ class AuthService {
     }
 
     private static String generateUniqueToken() {
-
         StringBuilder token = new StringBuilder();
         long currentTimeInMilisecond = Instant.now().toEpochMilli();
 
@@ -57,8 +53,7 @@ class AuthService {
                 .append(UUID.randomUUID().toString()).toString();
     }
 
-    public static Integer getUserId(String token) throws NullPointerException {
-
+    protected static Integer getUserId(String token) throws NullPointerException {
         String id = mapUserTokens.get(token);
 
         if (id == null) {
