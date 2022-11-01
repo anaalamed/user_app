@@ -27,10 +27,11 @@ class AuthService {
     public void createNewUser(String email, String name, String password) {
         // validation:  email unique ...
         UserRepository.User userExist = UserRepository.getUserByEmail(email);
-        System.out.println(userExist);
         if (userExist == null) {
             UserRepository.User newUser = new UserRepository.User(email, name, password);
             UserRepository.writeUserToDb(newUser);
+        } else {
+            System.out.println(userExist);
         }
     }
 
@@ -41,10 +42,12 @@ class AuthService {
             // generate token
             String token = generateUniqueToken();
             mapUserTokens.put(token, String.valueOf(user.getId()));
-            System.out.println("hashmap login tokens: " + mapUserTokens);
+//            System.out.println("hashmap login tokens: " + mapUserTokens);
             return token;
+        } else {
+            System.out.println("user's email or password don't match");
+            return null;
         }
-        return null;
     }
 
     private static String generateUniqueToken() {

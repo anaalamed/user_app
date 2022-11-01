@@ -23,6 +23,7 @@ public class UserService {
 
     public static void updateEmail(Integer id, String email) {
         UserRepository.User user = getUserById(id);
+        // need to add validation for email already exists
         if (!user.getEmail().equals(email)) {
             user.setEmail(email);
             UserRepository.writeUserToDb(user);

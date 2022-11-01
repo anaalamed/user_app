@@ -99,6 +99,7 @@ public class UserRepository {
     public static void removeUserFromDb(int id) {
         String filename = BASE_ROUTE + "/" + id + ".json";
         Files.removeFile(filename);
+        // need to delete user from users hashmap!
     }
 
     public static User getUserById(Integer id) {
