@@ -6,7 +6,7 @@ public class AuthController {
     private static AuthController single_instance = null;
     private static AuthService authService;
 
-    public AuthController() {
+    private AuthController() {
         authService = AuthService.getInstance();
     }
 
@@ -38,7 +38,7 @@ public class AuthController {
         }
     }
 
-    public static boolean validateUser(String email, String name, String password) {
+    private static boolean validateUser(String email, String name, String password) {
 
         boolean isEmailValid = Validate.validateEmail(email);
         boolean isNameValid = Validate.validateName(name);
@@ -51,8 +51,7 @@ public class AuthController {
         return false;
     }
 
-
-    public static boolean validateLoginFields( String email, String password) {
+    private static boolean validateLoginFields( String email, String password) {
         boolean isEmailValid = Validate.validateEmail(email);
         boolean isPasswordValid = Validate.validatePassword(password);
 
@@ -63,7 +62,5 @@ public class AuthController {
             return false;
         }
     }
-    public static void validateId() {
 
-    }
 }

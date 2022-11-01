@@ -10,8 +10,7 @@ public class Server {
         return single_instance;
     }
 
-    public Server() {
-
+    private Server() {
         // init singletons
         AuthController.getInstance();
         UserController.getInstance();
