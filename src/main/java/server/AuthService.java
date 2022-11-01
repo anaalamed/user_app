@@ -24,7 +24,7 @@ class AuthService {
         return single_instance;
     }
 
-    public void createNewUser(String email, String name, String password) {
+    protected void createNewUser(String email, String name, String password) {
         // validation:  email unique ...
         UserRepository.User userExist = UserRepository.getUserByEmail(email);
         if (userExist == null) {
@@ -35,7 +35,7 @@ class AuthService {
         }
     }
 
-    public static String loginUser(String email, String password) {
+    protected static String loginUser(String email, String password) {
 
         UserRepository.User user = UserRepository.getUserByEmail(email);
         if (user.getPassword().equals(password)) {
@@ -57,7 +57,7 @@ class AuthService {
                 .append(UUID.randomUUID().toString()).toString();
     }
 
-    public static Integer getUserId(String token) {
+    protected static Integer getUserId(String token) {
         String id = mapUserTokens.get(token);
         if (id == null) {
             throw new NullPointerException();

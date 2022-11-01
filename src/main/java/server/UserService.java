@@ -10,7 +10,7 @@ public class UserService {
         return single_instance;
     }
 
-    public static void updateName(Integer id, String name) {
+    protected static void updateName(Integer id, String name) {
         UserRepository.User user = getUserById(id);
 
         if (user !=null) {
@@ -21,7 +21,7 @@ public class UserService {
         }
     }
 
-    public static void updateEmail(Integer id, String email) {
+    protected static void updateEmail(Integer id, String email) {
         UserRepository.User user = getUserById(id);
         // need to add validation for email already exists
         if (!user.getEmail().equals(email)) {
@@ -30,7 +30,7 @@ public class UserService {
         }
     }
 
-    public static void updatePassword(Integer id, String password) {
+    protected static void updatePassword(Integer id, String password) {
         UserRepository.User user = getUserById(id);
 
         if (!user.getPassword().equals(password)) {
@@ -39,7 +39,7 @@ public class UserService {
         }
     }
 
-    public static void removeUser(Integer id) {
+    protected static void removeUser(Integer id) {
         UserRepository.User user = getUserById(id);
 
         if (user != null) {

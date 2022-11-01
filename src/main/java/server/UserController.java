@@ -5,9 +5,8 @@ import utils.Validate;
 public class UserController {
     private static UserController single_instance = null;
     private static UserService userService;
-    private static AuthService authService;
 
-    public UserController() {
+    private UserController() {
         userService = UserService.getInstance();
     }
 
