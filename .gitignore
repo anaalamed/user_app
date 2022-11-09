@@ -11,3 +11,5 @@ log/
 target/
 
 src/main/java/server/repo/
+
+logs/
