@@ -6,7 +6,7 @@ import server.UserController;
 import server.UserRepository;
 
 public class Main {
-    private static Logger logger = LogManager.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
         Server.getInstance(); // we initialize all the singletons needed for the server side
 
@@ -56,11 +56,10 @@ public class Main {
             UserController.updatePassword(tokenSamer, "new123456");
             UserController.removeUser(tokenDelete);
 
+
             System.out.println("hashmap users cache: " + UserRepository.getUsers());   // check only
         } catch (IllegalArgumentException | NullPointerException exception) {
             System.out.println(exception);
         }
-
-        logger.trace("this is a trace print int Level:600");
     }
 }
