@@ -1,9 +1,12 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import server.AuthController;
 import server.Server;
 import server.UserController;
 import server.UserRepository;
 
 public class Main {
+    private static Logger logger = LogManager.getLogger(Main.class.getName());
     public static void main(String[] args) {
         Server.getInstance(); // we initialize all the singletons needed for the server side
 
@@ -57,5 +60,7 @@ public class Main {
         } catch (IllegalArgumentException | NullPointerException exception) {
             System.out.println(exception);
         }
+
+        logger.trace("this is a trace print int Level:600");
     }
 }
