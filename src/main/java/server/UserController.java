@@ -1,9 +1,14 @@
 package server;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utils.Validate;
+
 
 public class UserController {
     private static UserController single_instance = null;
+    private static Logger logger = LogManager.getLogger(UserController.class.getName());
 
     private UserController() {
     }
@@ -11,55 +16,64 @@ public class UserController {
     public static UserController getInstance() {
         if (single_instance == null)
             single_instance = new UserController();
+        logger.trace("singleton has been created: " + single_instance);
 
         return single_instance;
     }
 
     public static void updateName(String token, String name) {
+        logger.info("start updateName method");
         try {
             Integer userId = AuthService.getUserId(token);
+            logger.debug("userId: " + userId);
             if (Validate.validateName(name)) {
                 UserService.updateName(userId, name);
             } else {
-                System.out.println("Invalid Name: " + name);
+                logger.warn("validation - Invalid name");
             }
         } catch (NullPointerException error) {
-            System.out.println("Invalid Token");
+            logger.warn("Invalid Token");
         }
     }
 
     public static void updatePassword(String token, String password) {
+        logger.info("start updatePassword method");
         try {
             Integer userId = AuthService.getUserId(token);
+            logger.debug("userId: " + userId);
             if (Validate.validatePassword(password)) {
                 UserService.updatePassword(userId, password);
             } else {
-                System.out.println("Invalid password: " + password);
+                logger.warn("validation - Invalid password");
             }
         } catch (NullPointerException error) {
-            System.out.println("Invalid Token");
+            logger.warn("Invalid Token");
         }
     }
 
     public static void updateEmail(String token, String email) {
+        logger.info("start updateEmail method");
         try {
             Integer userId = AuthService.getUserId(token);
+            logger.debug("userId: " + userId);
             if (Validate.validateEmail(email)) {
                 UserService.updateEmail(userId, email);
             } else {
-                System.out.println("Invalid email: " + email);
+                logger.warn("validation - Invalid email");
             }
         } catch (NullPointerException error) {
-            System.out.println("Invalid Token");
+            logger.warn("Invalid Token");
         }
     }
 
     public static void removeUser(String token) {
+        logger.info("start removeUser method");
         try {
             Integer userId = AuthService.getUserId(token);
+            logger.debug("userId: " + userId);
             UserService.removeUser(userId);
         } catch (NullPointerException error) {
-            System.out.println("Invalid Token");
+            logger.warn("Invalid Token");
         }
     }
 }
